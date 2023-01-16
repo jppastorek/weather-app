@@ -7,6 +7,9 @@ search.addEventListener("keypress", (event) => {
   }
 });
 
+//TODO need to figure out how to handle errors
+//.catch(handleError(search.value)) did not work, it has an error every time and then finds the city
+
 populateData("new orleans");
 
 async function getData(location) {
@@ -34,7 +37,6 @@ async function getData(location) {
     country: locationData[0].country,
     date: new Date(currentWeatherData.dt * 1000),
   };
-  console.log(currentWeather.date);
   return currentWeather;
 }
 
@@ -82,10 +84,10 @@ async function populateData(location) {
     }
     weatherImage.alt = "clouds";
   } else if (currentWeather.description == "Fog") {
-    weatherImage.src = "./images/fog.png"; //TODO download picture
+    weatherImage.src = "./images/fog.png";
     weatherImage.alt = "fog";
   } else if (currentWeather.description == "Snow") {
-    weatherImage.src = "./images/snow.png"; //TODO download picture
+    weatherImage.src = "./images/snow.png";
     weatherImage.alt = "snow";
   }
 }
@@ -126,4 +128,9 @@ function convertWindDirection(deg) {
     direction = "NNW";
   }
   return direction;
+}
+
+
+function handleError(location) {
+  alert(`${location} was not found. Please try another search.`)
 }
